@@ -1,0 +1,123 @@
+{% extends 'capsula/base.html' %}
+{% load static %}
+{% load index %}
+{% block masthead_subheading %}Lorem ipsum{% endblock %}
+{% block masthead_heading %}Desarrollo de software{% endblock %}
+
+{% block servicios %}
+    {% for service in services %}
+        <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+                <i class="fas fa-circle fa-stack-2x text-info"></i>
+                <i class="fas {{ service.icon }} fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="my-3">{{ service.title }}</h4>
+            <p class="text-muted">{{ service.description }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block portafolio %}
+        {% for i in range_portfolio %}
+        <div class="col-lg-4 col-sm-6 mb-4">
+            <div class="portfolio-item">
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal{{i}}">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="{{ portfolios|getitem:i|getattr:'image' }}" alt="" />
+                </a>
+                <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading">{{ portfolios|getitem:i|getattr:'title' }}</div>
+                    <div class="portfolio-caption-subheading text-muted">{{ portfolios|getitem:i|getattr:'subtitle' }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}
+
+{% block modal %}
+        {% for i in range_portfolio %}
+        <div class="portfolio-modal modal fade" id="portfolioModal{{i}}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">X</div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project Details Go Here-->
+                                    <h3 class="text-uppercase">{{ portfolios|getitem:i|getattr:'project_name' }}</h3>
+                                    <p class="item-intro text-muted">{{ portfolios|getitem:i|getattr:'project_data' }}</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ portfolios|getitem:i|getattr:'project_image' }}" alt="" />
+                                    <p>{{ portfolios|getitem:i|getattr:'project_description' }}</p>
+                                    <ul class="list-inline">
+                                        <li>Fecha: {{ portfolios|getitem:i|getattr:'project_date' }}</li>
+                                        <li>Cliente: {{ portfolios|getitem:i|getattr:'project_client' }}</li>
+                                        <li>Categoria: {{ portfolios|getitem:i|getattr:'project_category' }}</li>
+                                    </ul>
+                                    <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                        <i class="fas fa-times mr-1"></i>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}
+
+{% block timeline %}
+    {% for i in range_about %}
+        {% if i|divisibleby:"2" %}
+            <li class="timeline-inverted">
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ abouts|getitem:i|getattr:'image' }}" alt="" /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>{{ abouts|getitem:i|getattr:'title' }}</h4>
+                        <h4 class="subheading">{{ abouts|getitem:i|getattr:'subtitle' }}</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">{{ abouts|getitem:i|getattr:'description' }}</p></div>
+                </div>
+            </li>
+        {% else %}
+            <li>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" style="max-width: 200; max-height: 200px;" src="{{ abouts|getitem:i|getattr:'image' }}" alt="" /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>{{ abouts|getitem:i|getattr:'title' }}</h4>
+                        <h4 class="subheading">{{ abouts|getitem:i|getattr:'subtitle' }}</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">{{ abouts|getitem:i|getattr:'description' }}</p></div>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+<!-- Team - Class Model: Teams-->
+{% block team %}
+        {% for i in range_team %}
+        <div class="col-lg-4">
+            <div class="team-member">
+                <img class="mx-auto rounded-circle" src="{{ teams|getitem:i|getattr:'image' }}" alt="" />
+                <h4>{{ teams|getitem:i|getattr:'name' }}</h4>
+                <p class="text-muted">{{ teams|getitem:i|getattr:'description' }}</p>
+                <a class="btn btn-dark btn-social mx-2" href="{{ teams|getitem:i|getattr:'github' }}"><i class="fab fa-github"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="{{ teams|getitem:i|getattr:'facebook' }}"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="{{ teams|getitem:i|getattr:'linkedin' }}"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}
+
+{% block clients %}
+    {% for client in clients %}
+        <div class="col-md-3 col-sm-6 my-3">
+            <a href="#!"><img class="img-fluid d-block mx-auto" src="{{ client.image.url }}" alt="" /></a>
+        </div>
+    {% endfor %}
+{% endblock %}

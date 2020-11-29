@@ -1,0 +1,2 @@
+Este frontend es una versión adaptada del tema "Start Bootstrap Business Casual"
+https://github.com/blackrockdigital/startbootstrap-business-casual
